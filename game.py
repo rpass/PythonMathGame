@@ -1,8 +1,25 @@
 import random
 
-while True:
-    operand_1 = random.randint(-100, 100)
-    operand_2 = random.randint(-100, 100)
-    input('%d + %d' % (operand_1, operand_2))
-    print('= %d\n' % (operand_1 + operand_2))
 
+class Game(object):
+    def __init__(self):
+        self.turns = 30
+
+    def play(self):
+        turn_counter = 0
+        while turn_counter < self.turns:
+            turn = self.Turn()
+            print(turn.question)
+            input()
+            print(turn.answer)
+
+    class Turn(object):
+        def __init__(self):
+            self.operands = (random.randint(-100, 100), random.randint(-100, 100))
+            self.question = "%d + %d = ?" % self.operands
+            self.answer = "%d" % (self.operands[0] + self.operands[1])
+
+
+if __name__ == "__main__":
+    game = Game()
+    game.play()
