@@ -15,7 +15,10 @@ class Game(object):
 
     class Turn(object):
         def __init__(self):
-            self.operands = (random.randint(-100, 100), random.randint(-100, 100))
+            operand_range_min = -100
+            operand_range_max = 100
+            self.operands = (random.randint(operand_range_min, operand_range_max),
+                             random.randint(operand_range_min, operand_range_max))
             self.question = "%d + %d = ?" % self.operands
             self.answer = "%d" % (self.operands[0] + self.operands[1])
 
