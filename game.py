@@ -26,11 +26,12 @@ class Game(object):
                              random.randint(operand_range_min, operand_range_max))
             self.question = "%s\n%s +\n ----" % (format_operand(self.operands[0]),
                                                  format_operand(self.operands[1]))
-            self.answer = "%s" % format_operand(self.operands[0] + self.operands[1])
+            self.answer = self.operands[0] + self.operands[1]
+            self.answer_string = "%s" % format_operand(self.answer)
 
         def play_turn(self):
             input(self.question)
-            print(self.answer + "\n")
+            print(self.answer_string + "\n")
 
 
 if __name__ == "__main__":
