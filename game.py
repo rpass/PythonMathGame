@@ -1,6 +1,11 @@
 import random
 
 
+def format_operand(operand):
+    padding_spaces = " " * (5 - len(str(operand)))
+    return padding_spaces + str(operand)
+
+
 class Game(object):
     def __init__(self):
         self.turns = 30
@@ -15,17 +20,17 @@ class Game(object):
 
     class Turn(object):
         def __init__(self):
-            operand_range_min = -100
+            operand_range_min = 1
             operand_range_max = 100
             self.operands = (random.randint(operand_range_min, operand_range_max),
                              random.randint(operand_range_min, operand_range_max))
-            self.question = "%d + %d = ?" % self.operands
-            self.answer = "%d" % (self.operands[0] + self.operands[1])
+            self.question = "%s\n%s +\n ----" % (format_operand(self.operands[0]),
+                                                 format_operand(self.operands[1]))
+            self.answer = "%s" % format_operand(self.operands[0] + self.operands[1])
 
         def play_turn(self):
-            print(self.question)
-            input()
-            print(self.answer)
+            input(self.question)
+            print(self.answer + "\n")
 
 
 if __name__ == "__main__":
