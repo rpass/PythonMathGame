@@ -1,4 +1,7 @@
 import random
+import signal
+
+import sys
 
 
 class Game(object):
@@ -23,11 +26,18 @@ class Game(object):
             self.operands = (random.randint(operand_range_min, operand_range_max),
                              random.randint(operand_range_min, operand_range_max))
             self.answer = self.operands[0] + self.operands[1]
+            self.ui = self.game.user_interface
 
         def play_turn(self):
-            ui = self.game.user_interface
-            ui.ask_question(self.operands)
-            ui.display_answer(self.answer)
+            def turn_timeout_handler(signum, stack):
+                print("\nSorry, you are out of time!")
+                sys.exit()
+
+            signal.signal(signal.SIGALRM, turn_timeout_handler)
+            signal.alarm(4)
+            self.ui.ask_question(self.operands)
+            signal.alarm(0)
+            self.ui.display_answer(self.answer)
 
     class CommandLineInterface(object):
         @staticmethod
