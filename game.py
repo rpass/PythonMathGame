@@ -1,6 +1,5 @@
 import random
 import signal
-
 import sys
 
 
@@ -33,10 +32,19 @@ class Game(object):
                 print("\nSorry, you are out of time!")
                 sys.exit()
 
-            signal.signal(signal.SIGALRM, turn_timeout_handler)
-            signal.alarm(4)
+            def register_timer():
+                signal.signal(signal.SIGALRM, turn_timeout_handler)
+
+            def end_timer():
+                signal.alarm(0)
+
+            def start_timer():
+                signal.alarm(4)
+
+            register_timer()
+            start_timer()
             self.ui.ask_question(self.operands)
-            signal.alarm(0)
+            end_timer()
             self.ui.display_answer(self.answer)
 
     class CommandLineInterface(object):
