@@ -15,7 +15,7 @@ class Game(object):
             turn = self.Turn(self)
             turn.play_turn()
             turn_counter += 1
-        print("Thank you for playing!")
+        self.user_interface.display_endgame()
 
     class Turn(object):
         def __init__(self, this_game):
@@ -29,7 +29,7 @@ class Game(object):
 
         def play_turn(self):
             def turn_timeout_handler(signum, stack):
-                print("\nSorry, you are out of time!")
+                self.ui.display_out_of_time_message()
                 sys.exit()
 
             def register_timer():
@@ -71,6 +71,14 @@ class Game(object):
 
         def display_answer(self, answer):
             print("%s\n" % self.format_operand(answer))
+
+        @staticmethod
+        def display_endgame():
+            print("Thank you for playing!")
+
+        @staticmethod
+        def display_out_of_time_message():
+            print("Sorry! You are out of time.\nGoodbye")
 
 
 if __name__ == "__main__":
