@@ -13,18 +13,20 @@ class CommandLineInterface(object):
         return padding_spaces + str(operand)
 
     def prepare_question(self, operands):
-        return "%s\n%s +\n ----" % (self.format_operand(operands[0]),
-                                    self.format_operand(operands[1]))
+        return "\n%s\n%s +\n ----\n" % (self.format_operand(operands[0]),
+                                        self.format_operand(operands[1]))
 
     def ask_question(self, operands):
         question = self.prepare_question(operands)
-        input(question)
+        user_answer = input(question)
+        return user_answer
 
     def display_answer(self, answer):
-        print("%s\n" % self.format_operand(answer))
+        print("%s" % self.format_operand(answer))
 
     @staticmethod
-    def display_endgame():
+    def display_endgame(user_score, number_of_turns):
+        print("Score: %d / %d" % (user_score, number_of_turns))
         print("Thank you for playing!")
 
     @staticmethod
