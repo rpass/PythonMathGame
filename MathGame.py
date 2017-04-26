@@ -10,6 +10,8 @@ class Game(object):
         self.turns = 30
         self.user_interface = CommandLineInterface()
         self.user_score = 0
+        self.difficulty_level = 0
+        self.users_correct_answer_streak = 0
 
     def play(self):
         self.user_interface.display_welcome()
@@ -49,17 +51,18 @@ class Game(object):
             user_answer = self.ui.ask_question(self.operands)
             end_timer()
 
-            user_answer_is_correct = self.process_user_input(user_answer)
-            self.ui.display_answer(self.answer) if not user_answer_is_correct else None
+            is_user_answer_correct = self.check_user_input(user_answer)
+            self.increase_user_score() if is_user_answer_correct else None
+            self.ui.display_answer(self.answer) if not is_user_answer_correct else None
 
-        def process_user_input(self, user_answer):
-            users_answer_is_valid_and_correct = str(user_answer).isdigit() and int(user_answer) == self.answer
+        def check_user_input(self, user_answer):
+            return str(user_answer).isdigit() and int(user_answer) == self.answer
 
-            if users_answer_is_valid_and_correct:
-                self.game.user_score += 1
-                return True
-            else:
-                return False
+        def increase_user_score(self):
+            self.game.user_score += 1
+            self.game.users_correct_answer_streak += 1
+            if self.game.users_correct_answer_streak == 5:
+                self.game.difficulty_level += 1
 
 
 if __name__ == "__main__":
