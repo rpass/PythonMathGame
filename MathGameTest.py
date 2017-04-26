@@ -12,12 +12,7 @@ class GameTest(unittest.TestCase):
     def test_check_user_input_increments_game_score_for_correct_input(self):
         game = Game()
         turn = game.Turn(game)
-
-        class MockUI(object):
-            def ask_question(self, operands):
-                return turn.answer
-
-        turn.ui = MockUI()
+        turn.ui = MockUI(turn)
         turn.play_turn()
         self.assertEqual(game.user_score, 1)
 
@@ -41,26 +36,24 @@ class GameTest(unittest.TestCase):
 
     def test_5_correct_answers_increases_difficulty_level_by_one(self):
         game = Game()
-        class MockUI(object):
-            def ask_question(self, operands):
-                return turn.answer
 
-        turn = game.Turn(game)
-        turn.ui = MockUI()
-        turn.play_turn()
-        turn = game.Turn(game)
-        turn.ui = MockUI()
-        turn.play_turn()
-        turn = game.Turn(game)
-        turn.ui = MockUI()
-        turn.play_turn()
-        turn = game.Turn(game)
-        turn.ui = MockUI()
-        turn.play_turn()
-        turn = game.Turn(game)
-        turn.ui = MockUI()
-        turn.play_turn()
+        for i in range(5):
+            self.simulate_turn(MockUI, game)
+
         self.assertEqual(game.difficulty_level, 1)
+
+    def simulate_turn(self, MockUI, game):
+        turn = game.Turn(game)
+        turn.ui = MockUI(turn)
+        turn.play_turn()
+
+
+class MockUI(object):
+    def __init__(self, turn):
+        self.correct_answer = turn.answer
+
+    def ask_question(self, operands):
+        return self.correct_answer
 
 
 if __name__ == '__main__':
