@@ -16,10 +16,12 @@ class GameTest(unittest.TestCase):
         turn.process_user_input(user_answer)
         self.assertEqual(game.user_score, 1)
 
-    def test_process_user_input_handles_no_input_as_an_incorrect_answer(self):
+    def test_process_user_input_handles_none_string_input_as_an_incorrect_answer(self):
         game = Game()
         turn = game.Turn(game)
         user_answer = ''
+        turn.process_user_input(user_answer)
+        user_answer = 1
         turn.process_user_input(user_answer)
         user_answer = 'one'
         turn.process_user_input(user_answer)

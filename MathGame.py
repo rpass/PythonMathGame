@@ -53,7 +53,7 @@ class Game(object):
             self.ui.display_answer(self.answer) if not user_answer_is_correct else None
 
         def process_user_input(self, user_answer):
-            users_answer_is_valid_and_correct = user_answer.isdigit() and int(user_answer) == self.answer
+            users_answer_is_valid_and_correct = str(user_answer).isdigit() and int(user_answer) == self.answer
 
             if users_answer_is_valid_and_correct:
                 self.game.user_score += 1
