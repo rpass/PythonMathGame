@@ -29,7 +29,11 @@ class Game(object):
         self.user_score += 1
         self.users_correct_answer_streak += 1
         if self.users_correct_answer_streak == 5:
-            self.difficulty_level += 1
+            self.increase_game_difficulty()
+
+    def increase_game_difficulty(self):
+        self.user_interface.display_increased_difficulty_message()
+        self.difficulty_level += 1
 
     class Turn(object):
 

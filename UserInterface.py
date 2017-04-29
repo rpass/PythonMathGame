@@ -32,3 +32,7 @@ class CommandLineInterface(object):
     @staticmethod
     def display_out_of_time_message():
         print("Sorry! You are out of time.\nGoodbye")
+
+    @staticmethod
+    def display_increased_difficulty_message():
+        print("5 correct answers. Difficulty increased!")
