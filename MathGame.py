@@ -29,6 +29,9 @@ class Game(object):
 
     def increase_user_score(self):
         self.user_score += 1
+        self.increase_user_correct_streak()
+
+    def increase_user_correct_streak(self):
         self.users_correct_answer_streak += 1
         if self.users_correct_answer_streak == 5:
             self.increase_game_difficulty()
