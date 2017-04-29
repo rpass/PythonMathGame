@@ -30,6 +30,19 @@ class GameTest(unittest.TestCase):
 
         self.assertEqual(game.difficulty_level, 1)
 
+    def test_4_correct_answers_1_incorrect_then_2_correct_answers_does_not_increase_difficulty(self):
+        game = Game()
+
+        for i in range(4):
+            simulate_turn(MockUI, game)
+
+        simulate_turn(DumbMockUI, game)
+        simulate_turn(DumbMockUI, game)
+
+        simulate_turn(MockUI, game)
+
+        self.assertEqual(game.difficulty_level, 0)
+
 
 class MockUI(object):
     def __init__(self, turn):
@@ -37,6 +50,17 @@ class MockUI(object):
 
     def ask_question(self, operands):
         return self.correct_answer
+
+
+class DumbMockUI(object):
+    def __init__(self, turn):
+        self.correct_answer = turn.answer
+
+    def ask_question(self, operands):
+        return self.correct_answer - 1
+
+    def display_answer(self, answer):
+        pass
 
 
 def simulate_turn(mock_ui, game):
