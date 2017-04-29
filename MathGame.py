@@ -2,6 +2,8 @@ import random
 import signal
 import sys
 
+import math
+
 from UserInterface import CommandLineInterface
 
 
@@ -30,6 +32,7 @@ class Game(object):
         self.users_correct_answer_streak += 1
         if self.users_correct_answer_streak == 5:
             self.increase_game_difficulty()
+            self.reset_user_streak()
 
     def increase_game_difficulty(self):
         self.user_interface.display_increased_difficulty_message()
@@ -39,8 +42,9 @@ class Game(object):
 
         def __init__(self, this_game):
             self.game = this_game
+            self.difficulty_level = self.game.difficulty_level
             operand_range_min = 1
-            operand_range_max = 9
+            operand_range_max = 9 + int(math.pow(5, self.difficulty_level))
             self.operands = (random.randint(operand_range_min, operand_range_max),
                              random.randint(operand_range_min, operand_range_max))
             self.answer = self.operands[0] + self.operands[1]
