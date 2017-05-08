@@ -1,6 +1,6 @@
 import unittest
 
-from MathGame import Game
+from src.MathGame import Game
 
 
 class GameTest(unittest.TestCase):

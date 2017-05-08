@@ -1,10 +1,9 @@
+import math
 import random
 import signal
 import sys
 
-import math
-
-from UserInterface import CommandLineInterface
+from src.UserInterface import CommandLineInterface
 
 
 class Game(object):

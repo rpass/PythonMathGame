@@ -1,6 +1,6 @@
 import unittest
 
-from UserInterface import CommandLineInterface
+from src.UserInterface import CommandLineInterface
 
 
 class CommandLineInterfaceTest(unittest.TestCase):
